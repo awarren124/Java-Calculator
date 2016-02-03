@@ -1,0 +1,15 @@
+To Do:
+Add a display, 10 number buttons, a clear button, 4 operation buttons, and an equals button.
+When adding any object to the panel, make sure to include the gridx and gridy, as well as setting the fill to horizontal.
+
+Create a method for creating a new number button.
+	-Takes parameters for the title of the button (and the number it prints when pressed), the x coordinate, and the y coordinate.
+	-Creates the button, adds a new action listener that will call a method to add a number to the display.
+   
+Create a method for creating a new clear button.
+	-Takes parameters for the title and coordinated.
+	-adds a new action listener that will clear the display and reset any logic numbers.
+	
+Do similar things for the operation buttons, and then for a total button.
+
+To get a number from a display, use Double.parseDouble(display.getText());
