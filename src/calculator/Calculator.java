@@ -19,14 +19,12 @@ public class Calculator {
 	static JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17;
 	static GridBagConstraints c = new GridBagConstraints();
 	static int operation = 0;
-	static String strArray [];
-	static String strArray2 [];
-	static int intArray [];
-	static boolean end = false;
-	static int arCounter = -1;
-	static int ar2Counter = -1;
-	static int i = 0;
-	static int f = 0;
+	static String nowText;
+	static String thenText;
+	static int sum;
+	static int difference;
+	static int product;
+	static double quotient;
 
 	public static void main(String[] args){
 	
@@ -42,10 +40,10 @@ public class Calculator {
 		panel.add(result, c);
 		c.gridwidth = 1;
 		
-		newButton(button1, 1, 0, "+");
-		newButton(button2, 2, 0, "-");
-		newButton(button3, 3, 0, "X");
-		newButton(button4, 4, 0, "/");
+		newOperationButton(button1, 1, 0, "+");
+		newOperationButton(button2, 2, 0, "-");
+		newOperationButton(button3, 3, 0, "X");
+		newOperationButton(button4, 4, 0, "/");
 		newButton(button5, 1, 1, "1");
 		newButton(button6, 1, 2, "2");
 		newButton(button7, 1, 3, "3");
@@ -59,8 +57,7 @@ public class Calculator {
 		newEnterButton(button14, 4, 2, "Enter!");
 		newClearButton(button15, 0, 3, "Clear");
 		
-		frame.add(panel);
-		
+		frame.add(panel);	
 	}
 	public static void newEnterButton(JButton button, int cY, int cX, String text){
 		button = new JButton(text);
@@ -75,10 +72,35 @@ public class Calculator {
 
 
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
-			
-			int convertCount = 0;
-			int arSize = strArray.length;
+
 			if(operation == 1){
+				thenText = result.getText();
+				int nowInt = Integer.parseInt(nowText);
+				int thenInt = Integer.parseInt(thenText);
+				sum = nowInt + thenInt;
+				result.setText(sum + " ");
+				operation = 0;
+			}else if(operation == 2){
+				thenText = result.getText();
+				int nowInt = Integer.parseInt(nowText);
+				int thenInt = Integer.parseInt(thenText);
+				difference = nowInt - thenInt;
+				result.setText(difference + " ");
+				operation = 0;
+			}else if(operation == 3){
+				thenText = result.getText();
+				int nowInt = Integer.parseInt(nowText);
+				int thenInt = Integer.parseInt(thenText);
+				product = nowInt * thenInt;
+				result.setText(product + " ");
+				operation = 0;
+			}else if(operation == 4){
+				thenText = result.getText();
+				double nowDou = (double)Integer.parseInt(nowText);
+				double thenDou = (double)Integer.parseInt(thenText);
+				quotient = nowDou / thenDou;
+				result.setText(quotient + " ");
+				operation = 0;
 			}
 		}});
 	}
@@ -101,29 +123,12 @@ public class Calculator {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
 			
-			i = 0;
-			arCounter++;
-			end = false;
 			if((result.getText()) == ("0")){
 				result.setText(text);
 			}else{
 				result.setText(result.getText() + text);
 			}
-			if(i == 0){
-				if(!end){
-					strArray[arCounter] = text;
-					i++;
-				}else{
-					i = 1;
-				}
-			}else if(f == 2){
-				if(!end){
-					strArray2[ar2Counter] = text;
-					f++;
-				}else{
-					f = 1;
-				}
-			}
+			
 		}});
 		c.weightx = 0.5;
 		c.gridx = constraintX;
@@ -135,16 +140,22 @@ public class Calculator {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
 			
-			end = true;
 			if(text == ("+")){
+				nowText = result.getText();
 				operation = 1;
-				f = 2;
+				result.setText("");
 			}else if(text == ("-")){
+				nowText = result.getText();
 				operation = 2;
+				result.setText("");
 			}else if(text == ("X")){
+				nowText = result.getText();
 				operation = 3;
+				result.setText("");
 			}else if(text == ("/")){
+				nowText = result.getText();
 				operation = 4;
+				result.setText("");
 			}
 			
 		}});
