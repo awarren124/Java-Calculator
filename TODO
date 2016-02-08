@@ -12,6 +12,8 @@ Create a method for creating a new clear button.
 	
 Do similar things for the operation buttons, and then for a total button.
 
+ALL OF THE ABOVE HAS BEEN COMPLETED
+
 To get a number from a display, use Double.parseDouble(display.getText());
 -Exponent Button (Math.pow();)
 -Maybe sin/cos/tan
