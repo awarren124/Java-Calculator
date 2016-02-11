@@ -16,7 +16,7 @@ public class Calculator {
 	static JPanel panel = new JPanel();
 	static JLabel result = new JLabel("0");
 	static JButton button = new JButton("Button1");
-	static JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17;
+	static JButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16;
 	static GridBagConstraints c = new GridBagConstraints();
 	static int operation = 0;
 	static String nowText;
@@ -25,7 +25,7 @@ public class Calculator {
 	static int difference;
 	static int product;
 	static double quotient;
-
+	
 	public static void main(String[] args){
 	
 		panel.setLayout(new GridBagLayout());//Puts buttons on a grid
@@ -46,7 +46,7 @@ public class Calculator {
 		newOperationButton(button1, 1, 0, "+");//addition
 		newOperationButton(button2, 2, 0, "-");//subtraction
 		newOperationButton(button3, 3, 0, "X");//multiplication
-		newOperationButton(button4, 4, 0, "Ã·");//division
+		newOperationButton(button4, 4, 0, "÷");//division
 		
 		//Number buttons
 		newButton(button5, 1, 1, "1");//1
@@ -63,9 +63,10 @@ public class Calculator {
 		//Special buttons
 		newEnterButton(button14, 4, 2, "Enter!");//enter
 		newClearButton(button15, 0, 3, "Clear");//clear
-		
-		frame.add(panel);	
+
+		frame.add(panel);//adds panel to frame
 	}
+	
 	public static void newEnterButton(JButton button, int cY, int cX, String text){
 		button = new JButton(text);
 
@@ -76,7 +77,6 @@ public class Calculator {
 		c.gridheight = 1;
 		c.gridwidth = 2;
 		panel.add(button, c);
-
 
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
 
@@ -110,8 +110,10 @@ public class Calculator {
 				result.setText(quotient + " ");
 				operation = 0;
 			}
+			panel.requestFocusInWindow();
 		}});
 	}
+	
 	public static void newClearButton(JButton button, int constraintY, int constraintX, String text){
 		button = new JButton(text);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -119,17 +121,23 @@ public class Calculator {
 		
 			result.setText("0");//clears result display
 			operation = 0;//resets operation variable
-			
+
 		}});
 		c.weightx = 0.5;
 		c.gridx = constraintX;
 		c.gridy = constraintY;
 		panel.add(button, c);
 	}
+	
 	public static void newButton(JButton button, int constraintY, int constraintX, String text){
 		button = new JButton(text);
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
+
+			if (operation != 0){
+				result.setText("");
+			}
 			
 			if((result.getText()) == ("0")){//if the display was cleared
 				result.setText(text);//display the number
@@ -137,36 +145,35 @@ public class Calculator {
 				result.setText(result.getText() + text);//put the number at the end of the numbers already there
 			}
 			
+			panel.requestFocusInWindow();
 		}});
 		c.weightx = 0.5;
 		c.gridx = constraintX;
 		c.gridy = constraintY;
 		panel.add(button, c);
 	}
+	
 	public static void newOperationButton(JButton button, int constraintY, int constraintX, String text){
 		button = new JButton(text);
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		button.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){
 			
-			if(text == ("+")){//if addition
-				nowText = result.getText();//assign first input to variable
-				operation = 1;//set operation variable to 1
-				result.setText("");//display nothing
-			}else if(text == ("-")){//if subtraction
-				nowText = result.getText();
-				operation = 2;//set operation variable to 2
-				result.setText("");
-			}else if(text == ("X")){//if multiplication
-				nowText = result.getText();
-				operation = 3;//set operation variable to 3
-				result.setText("");
-			}else if(text == ("Ã·")){//if division
-				nowText = result.getText();
-				operation = 4;//set operation variable to 4
-				result.setText("");
-			}
-			
+				if(text == ("+")){//if addition
+					nowText = result.getText();//assign first input to variable
+					operation = 1;//set operation variable to 1
+				}else if(text == ("-")){//if subtraction
+					nowText = result.getText();
+					operation = 2;//set operation variable to 2
+				}else if(text == ("X")){//if multiplication
+					nowText = result.getText();
+					operation = 3;//set operation variable to 3
+				}else if(text == ("÷")){//if division
+					nowText = result.getText();
+					operation = 4;//set operation variable to 4
+				}
 		}});
+		
 		c.weightx = 0.5;
 		c.gridx = constraintX;
 		c.gridy = constraintY;
